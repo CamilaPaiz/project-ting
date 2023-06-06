@@ -1,3 +1,4 @@
+import sys
 from ting_file_management.file_management import txt_importer
 
 
@@ -30,3 +31,15 @@ def remove(instance):
 
 def file_metadata(instance, position):
     """Apresenta as informações superficiais processadas"""
+    if position < 0 or position >= len(instance):
+        print("Posição inválida", file=sys.stderr)
+    else:
+        file = instance.search(position)
+        lines = txt_importer(file)
+        if lines:
+            data = {
+                "nome_do_arquivo": file,
+                "qtd_linhas": len(lines),
+                "linhas_do_arquivo": lines,
+            }
+            print(data)
