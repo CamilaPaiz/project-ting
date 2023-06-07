@@ -5,8 +5,8 @@ from ting_file_management.file_management import txt_importer
 def process(path_file, instance):
     """processa arquivo e gera dicionário"""
     # ignorar arquivos que já tenham sido processados anteriormente
-    for path in instance._data:
-        if path == path_file:
+    for data in instance._data:
+        if data["nome_do_arquivo"] == path_file:
             return
 
     lines = txt_importer(path_file)
@@ -16,7 +16,7 @@ def process(path_file, instance):
             "qtd_linhas": len(lines),
             "linhas_do_arquivo": lines,
         }
-        instance.enqueue(path_file)
+        instance.enqueue(data)
         print(data)
 
 
@@ -24,7 +24,7 @@ def remove(instance):
     """remove primeiro arquivo processado"""
     if len(instance) > 0:
         file = instance.dequeue()
-        print(f"Arquivo {file} removido com sucesso")
+        print(f"Arquivo {file['nome_do_arquivo']} removido com sucesso")
     else:
         print("Não há elementos")
 
@@ -35,11 +35,11 @@ def file_metadata(instance, position):
         print("Posição inválida", file=sys.stderr)
     else:
         file = instance.search(position)
-        lines = txt_importer(file)
-        if lines:
+        """  lines = txt_importer(file) """
+        if file:
             data = {
                 "nome_do_arquivo": file,
-                "qtd_linhas": len(lines),
-                "linhas_do_arquivo": lines,
+                "qtd_linhas": file["qtd_linhas"],
+                "linhas_do_arquivo": file["linhas_do_arquivo"],
             }
             print(data)
