@@ -22,7 +22,7 @@ def test_basic_priority_queueing():
     file2 = {
         "nome_do_arquivo": "teste.txt",
         "qtd_linhas": 4,
-        "linhas_do_arquivo": ["line1", "line2", "line3"],
+        "linhas_do_arquivo": ["line1", "line2", "line3", "line4"],
     }
     priorityQueue.enqueue(file1)
     priorityQueue.enqueue(file2)
@@ -51,8 +51,8 @@ def test_basic_priority_queueing():
 
     # implementa teste para função dequeue para priorityQueue
 
-    newQueue_file = priorityQueue.dequeue()
-    assert newQueue_file == file1
+    dequeuedQueue_file = priorityQueue.dequeue()
+    assert dequeuedQueue_file == file1
     assert len(priorityQueue) == 2
 
     # implementa teste para função search
